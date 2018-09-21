@@ -24,7 +24,7 @@ struct tm
     int tm_year; /*年， 从1900至今已经多少年*/
     int tm_wday; /*星期，一周中的第几天， 从星期日算起，0-6*/
     int tm_yday; /*从今年1月1日到目前的天数，范围0-365*/
-int tm_isdst; /*日光节约时间的旗标*/
+    int tm_isdst; /*日光节约时间的旗标*/
 };
 ```
 需要特别注意的是，年份是从1900年起至今多少年，而不是直接存储如2008年，月份从0开始的，0表示一月，星期也是从0开始的， 0表示星期日，1表示星期一。
@@ -75,5 +75,23 @@ int main()
 ```c
 ~ gcc gettime1.c -o gettime1
 ~ ./gettime1                
+Thu Sep  6 04:07:32 2018
+```
+
+- 直接把time_t类型转化为常见的字符串格式
+```c
+/* gettime2.c*/
+#include <time.h>
+int main()
+{
+time_t timep;
+time(&timep); /*获取time_t类型当前时间*/
+/*转换为常见的字符串：Thu Sep  6 04:07:32 2018*/
+printf("%s", ctime(&timep));
+return 0;
+}
+编译并运行：
+$gcc -o gettime2 gettime2.c
+$./gettime2
 Thu Sep  6 04:07:32 2018
 ```
